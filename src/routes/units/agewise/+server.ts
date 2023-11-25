@@ -178,16 +178,13 @@ export const GET: RequestHandler = async () => {
     ]))[0];
 
     ageWiseUnits["data"] = _.sortBy(ageWiseUnits["data"], "model");
-    ageWiseUnits["data"] = _.forEach(ageWiseUnits["data"], modelData => {
-      modelData["data"] = _.forEach(modelData["data"], yearData => {
-        yearData["data"] = _.forEach(yearData["data"], monthData => {
-          monthData["data"] = _.sortBy(monthData["data"], "day");
-          return monthData;
-        });
-        return yearData
-      });
-      return modelData;
-    });
+    ageWiseUnits["data"] = _.forEach(ageWiseUnits["data"], modelData => ({
+      ...modelData, data: _.forEach(modelData["data"], yearData => ({
+        ...yearData, data: _.forEach(yearData["data"], monthData => ({
+          ...monthData, data: _.sortBy(monthData["data"], "day")
+        }))
+      }))
+    }));
     return json(JSON.parse(JSON.stringify(ageWiseUnits).replace(/_id/g, "frameNo")));
   } catch (error) {
     return json(error, {status: 502});

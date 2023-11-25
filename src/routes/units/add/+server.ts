@@ -5,13 +5,13 @@ import { json } from '@sveltejs/kit';
 export const POST: RequestHandler = async ({request}) => {
   try {
     const rows = await request.json();
-    await Promise.all(rows!.map(async (row: unknown[]) => {
-      await Unit.updateOne({_id: row[2]}, {$set: { 
+    await Promise.all(rows!.map(async (row: unknown[]) =>
+      await Unit.updateOne({ _id: row[2] }, { $set: { 
         engineNo: row[3],
         model: row[1],
         color: row[4],
-        entryDate: row[5]}}, {upsert : true, setDefaultsOnInsert: true});
-      }
+        entryDate: row[5]}}, { upsert: true, setDefaultsOnInsert: true }
+      )
     ));
 
     return json('success');

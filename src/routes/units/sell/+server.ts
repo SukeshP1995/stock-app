@@ -4,7 +4,7 @@ import { json } from '@sveltejs/kit';
 
 export const POST: RequestHandler = async ({request}) => {
   try {
-    const {units} = await request.json();
+    const { units } = await request.json();
     // await Unit.updateMany({_id: {'$in': ids}}, {$set: });
     await Promise.all(units.map(async (unit: any) => {
       const { saleType, saleDate, transactionType, financeName, frameNo: _id, checkpoint } = unit;

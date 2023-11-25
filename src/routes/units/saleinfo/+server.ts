@@ -1,7 +1,7 @@
 import type { RequestHandler } from './$types';
 import Unit from '$lib/server/models/unit.model'
 import { json } from '@sveltejs/kit';
-import { getModelColorCount, getSaleInfo } from '$lib/server/utils';
+import { getSaleInfo } from '$lib/server/utils';
 
 export const GET: RequestHandler = async ({ url }) => {
   try {
